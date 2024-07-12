@@ -1,4 +1,4 @@
-package org.kernel360.precourse.validators;
+package org.kernel360.precourse.validator;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

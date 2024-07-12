@@ -1,4 +1,4 @@
-package org.kernel360.precourse.validators;
+package org.kernel360.precourse.validator;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

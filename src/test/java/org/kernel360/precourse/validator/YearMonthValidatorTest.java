@@ -1,4 +1,4 @@
-package org.kernel360.precourse.validators;
+package org.kernel360.precourse.validator;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
