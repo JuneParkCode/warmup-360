@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode(callSuper = false)
-public class UserEntity extends Entity {
+public class UserMemdbEntity extends Entity {
 	private String name;
 	private int score;
 }

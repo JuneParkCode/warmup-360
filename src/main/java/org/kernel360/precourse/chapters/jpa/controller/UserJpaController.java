@@ -1,10 +1,10 @@
-package org.kernel360.precourse.chapters.memdb.controller;
+package org.kernel360.precourse.chapters.jpa.controller;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.kernel360.precourse.chapters.memdb.model.UserEntity;
-import org.kernel360.precourse.chapters.memdb.service.UserService;
+import org.kernel360.precourse.chapters.jpa.db.UserJpaEntity;
+import org.kernel360.precourse.chapters.jpa.service.UserJpaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,27 +18,27 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/jpa/users")
 @RequiredArgsConstructor
-public class UserController {
-	private final UserService userService;
+public class UserJpaController {
+	private final UserJpaService userJpaService;
 
 	@PutMapping("")
-	public ResponseEntity<UserEntity> saveUser(
-		@RequestBody UserEntity requestUserEntity) {
-		return ResponseEntity.ok(userService.save(requestUserEntity));
+	public ResponseEntity<UserJpaEntity> saveUser(
+		@RequestBody UserJpaEntity requestUserEntity) {
+		return ResponseEntity.ok(userJpaService.save(requestUserEntity));
 	}
 
 	@DeleteMapping("/id/{id}")
 	public ResponseEntity<Void> deleteUser(
 		@PathVariable("id") Long id) {
-		userService.deleteById(id);
+		userJpaService.deleteById(id);
 		return ResponseEntity.ok().build();
 	}
 
 	@GetMapping("/id/{id}")
-	public ResponseEntity<UserEntity> getUser(@PathVariable Long id) {
-		Optional<UserEntity> userEntity = userService.findById(id);
+	public ResponseEntity<UserJpaEntity> getUser(@PathVariable Long id) {
+		Optional<UserJpaEntity> userEntity = userJpaService.findById(id);
 
 		return userEntity.map(entity -> ResponseEntity.ok()
 			.body(entity)).orElseGet(() -> ResponseEntity.notFound()
@@ -46,14 +46,14 @@ public class UserController {
 	}
 
 	@GetMapping("")
-	public ResponseEntity<List<UserEntity>> getUsers() {
-		return ResponseEntity.ok(userService.findAll());
+	public ResponseEntity<List<UserJpaEntity>> getUsers() {
+		return ResponseEntity.ok(userJpaService.findAll());
 	}
 
 	@GetMapping("/score")
-	public ResponseEntity<List<UserEntity>> getUserByScore(
+	public ResponseEntity<List<UserJpaEntity>> getUserByScore(
 		@RequestParam(name = "score") int score) {
-		List<UserEntity> filteredScore = userService.filterScore(score);
+		List<UserJpaEntity> filteredScore = userJpaService.filterScore(score);
 
 		return ResponseEntity.ok().body(filteredScore);
 	}
