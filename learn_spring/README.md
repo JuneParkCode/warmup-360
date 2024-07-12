@@ -13,4 +13,12 @@
     - [AngularJS Commit Message Conventions](https://gist.github.com/stephenparish/9941e89d80e2bc58a153)
     - [좋은 git 커밋 메시지를 작성하기 위한 7가지 약속](https://meetup.nhncloud.com/posts/106)
 
-    
+### IntelliJ 설정
+- [IntelliJ 관련 삽질 기록](https://life.photogrammer.me/intellj-settings-memo/)
+
+### NOTE
+- learn_spring 에서는 모두 구현하지 않음
+- 일부 테스트 필요하다고 생각한 부분은 테스트 코드 작성함.
+    - `MemoryDbRepository`
+    - `Validators`
+    - `UserMemoryDbRepository`
