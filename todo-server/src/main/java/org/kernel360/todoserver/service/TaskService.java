@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.apache.logging.log4j.util.Strings;
 import org.kernel360.todoserver.constants.TaskStatus;
 import org.kernel360.todoserver.model.Task;
 import org.kernel360.todoserver.persist.TaskRepository;
@@ -57,6 +58,35 @@ public class TaskService {
 	private TaskEntity getById(Long id) {
 		return this.taskRepository.findById(id)
 			.orElseThrow(() -> new IllegalArgumentException(String.format("not exists task id [%d]", id)));
+	}
+
+	public Task update(Long id, String title, String description, LocalDate dueDate) {
+		var exists = this.getById(id);
+
+		exists.setTitle(Strings.isEmpty(title) ? exists.getTitle() : title);
+		exists.setDescription(Strings.isEmpty(description) ? exists.getDescription() : description);
+		exists.setDueDate(dueDate == null ? exists.getDueDate() : Date.valueOf(dueDate));
+
+		var updated = this.taskRepository.save(exists);
+		return this.toObject(updated);
+	}
+
+	public Task updateStatus(Long id, TaskStatus status) {
+		var exists = this.getById(id);
+		exists.setStatus(status);
+
+		var updated = this.taskRepository.save(exists);
+		return this.toObject(updated);
+	}
+
+	public boolean delete(Long id) {
+		try {
+			this.taskRepository.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			log.error("delete task error", e);
+			return false;
+		}
 	}
 
 	private Task toObject(TaskEntity e) {
