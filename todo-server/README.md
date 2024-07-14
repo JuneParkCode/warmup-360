@@ -58,3 +58,7 @@ Kernel 360 사전과제 - 부록 1
 |  GET   | /tasks?dueDate={dueDate} |   마감일로 필터링   |
 |  GET   |  /tasks?status={status}  |   상태로 필터링    |
 |  GET   |      /tasks/status       | 할 일의 상태목록 조회 |
+
+## NOTE
+
+- 별도로 Branch 사용 / Issue 생성하지 않았음.
