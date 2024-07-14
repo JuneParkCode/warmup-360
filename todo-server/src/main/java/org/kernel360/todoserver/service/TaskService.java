@@ -2,6 +2,7 @@ package org.kernel360.todoserver.service;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.kernel360.todoserver.constants.TaskStatus;
 import org.kernel360.todoserver.model.Task;
@@ -28,6 +29,34 @@ public class TaskService {
 
 		TaskEntity saved = this.taskRepository.save(entity);
 		return this.toObject(saved);
+	}
+
+	public List<Task> getAll() {
+		return this.taskRepository.findAll().stream()
+			.map(this::toObject)
+			.toList();
+	}
+
+	public List<Task> getByDueDate(String dueDate) {
+		return this.taskRepository.findAllByDueDate(Date.valueOf(dueDate)).stream()
+			.map(this::toObject)
+			.toList();
+	}
+
+	public List<Task> getByStatus(TaskStatus status) {
+		return this.taskRepository.findAllByStatus(status).stream()
+			.map(this::toObject)
+			.toList();
+	}
+
+	public Task getOne(Long id) {
+		var entity = this.getById(id);
+		return this.toObject(entity);
+	}
+
+	private TaskEntity getById(Long id) {
+		return this.taskRepository.findById(id)
+			.orElseThrow(() -> new IllegalArgumentException(String.format("not exists task id [%d]", id)));
 	}
 
 	private Task toObject(TaskEntity e) {
